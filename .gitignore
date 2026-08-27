@@ -1,0 +1,18 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Java and Spring Boot build output
+**/target/
+**/data/*.mv.db
+**/data/*.trace.db
+
+# Frontend dependencies and build output
+**/node_modules/
+**/dist/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store

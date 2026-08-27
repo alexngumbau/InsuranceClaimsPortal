@@ -69,6 +69,22 @@ set +a
 
 The API runs on `http://localhost:8080` by default.
 
+## API Documentation
+
+When the backend is running, interactive Swagger UI is available at:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
+
+The generated OpenAPI document is available at:
+
+```text
+http://localhost:8080/v3/api-docs
+```
+
+Swagger documentation is generated from the backend controllers and includes claim and policy operations, request validation metadata, status values, and documented error responses.
+
 For production, use the `prod` profile and provide explicit environment variables. Use `JPA_DDL_AUTO=validate` with a separately managed database schema.
 
 ## Frontend Setup

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.server.ResponseStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,13 @@ public class ApiExceptionHandler {
                                                               HttpServletRequest request) {
         return ResponseEntity.badRequest().body(new ApiError(
             Instant.now(), 400, "Bad Request", exception.getMessage(), request.getRequestURI()));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiError> handleMissingResource(NoResourceFoundException exception,
+                                                          HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiError(
+            Instant.now(), 404, "Not Found", "Resource does not exist.", request.getRequestURI()));
     }
 
     @ExceptionHandler(Exception.class)

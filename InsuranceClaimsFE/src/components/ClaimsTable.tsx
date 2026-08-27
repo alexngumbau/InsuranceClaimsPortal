@@ -144,18 +144,13 @@ const detailStatusColors: Record<ClaimStatus, string> = {
 export function ClaimDetailsDrawer({ claim, onClose, onUpdated }: ClaimDetailsDrawerProps) {
   const [details, setDetails] = useState<Claim | null>(claim)
   const [selectedStatus, setSelectedStatus] = useState<ClaimStatus>()
-  const [isLoading, setIsLoading] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
 
   useEffect(() => {
-    setDetails(claim)
-    setSelectedStatus(undefined)
     if (!claim) return
-    setIsLoading(true)
     getClaim(claim.id)
       .then(setDetails)
       .catch((error: unknown) => message.error(error instanceof Error ? error.message : 'Unable to load claim.'))
-      .finally(() => setIsLoading(false))
   }, [claim])
 
   const handleStatusUpdate = async () => {
@@ -174,22 +169,24 @@ export function ClaimDetailsDrawer({ claim, onClose, onUpdated }: ClaimDetailsDr
     }
   }
 
-  const availableStatuses = details ? nextStatuses[details.status] : []
+  const visibleDetails = details?.id === claim?.id ? details : claim
+  const availableStatuses = visibleDetails ? nextStatuses[visibleDetails.status] : []
+  const visibleSelectedStatus = availableStatuses.includes(selectedStatus as ClaimStatus) ? selectedStatus : undefined
 
   return (
-    <Drawer title={<span className="drawer-title">Claim details</span>} open={Boolean(claim)} onClose={onClose} size={480} loading={isLoading}>
-      {details && <Descriptions column={1} bordered size="small">
-        <Descriptions.Item label="Claim number">{details.number}</Descriptions.Item>
-        <Descriptions.Item label="Customer">{details.customer}</Descriptions.Item>
-        <Descriptions.Item label="Policy number">{details.policy}</Descriptions.Item>
-        <Descriptions.Item label="Claim type">{details.type}</Descriptions.Item>
-        <Descriptions.Item label="Amount">{details.amount}</Descriptions.Item>
-        <Descriptions.Item label="Incident date">{details.incidentDate || 'Not available'}</Descriptions.Item>
-        <Descriptions.Item label="Description">{details.description || 'Not available'}</Descriptions.Item>
-        <Descriptions.Item label="Status"><Tag color={detailStatusColors[details.status]}>{details.status.replace('_', ' ')}</Tag></Descriptions.Item>
+    <Drawer title={<span className="drawer-title">Claim details</span>} open={Boolean(claim)} onClose={onClose} size={480}>
+      {visibleDetails && <Descriptions column={1} bordered size="small">
+        <Descriptions.Item label="Claim number">{visibleDetails.number}</Descriptions.Item>
+        <Descriptions.Item label="Customer">{visibleDetails.customer}</Descriptions.Item>
+        <Descriptions.Item label="Policy number">{visibleDetails.policy}</Descriptions.Item>
+        <Descriptions.Item label="Claim type">{visibleDetails.type}</Descriptions.Item>
+        <Descriptions.Item label="Amount">{visibleDetails.amount}</Descriptions.Item>
+        <Descriptions.Item label="Incident date">{visibleDetails.incidentDate || 'Not available'}</Descriptions.Item>
+        <Descriptions.Item label="Description">{visibleDetails.description || 'Not available'}</Descriptions.Item>
+        <Descriptions.Item label="Status"><Tag color={detailStatusColors[visibleDetails.status]}>{visibleDetails.status.replace('_', ' ')}</Tag></Descriptions.Item>
       </Descriptions>}
-      {details && availableStatuses.length > 0 && <div className="status-actions">
-        <Select placeholder="Select next status" value={selectedStatus} onChange={setSelectedStatus} options={availableStatuses.map((status) => ({ value: status, label: status.replace('_', ' ') }))} />
+      {visibleDetails && availableStatuses.length > 0 && <div className="status-actions">
+        <Select placeholder="Select next status" value={visibleSelectedStatus} onChange={setSelectedStatus} options={availableStatuses.map((status) => ({ value: status, label: status.replace('_', ' ') }))} />
         <Button type="primary" disabled={!selectedStatus} loading={isUpdating} onClick={handleStatusUpdate}>Update status</Button>
       </div>}
     </Drawer>

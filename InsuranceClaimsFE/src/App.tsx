@@ -24,7 +24,6 @@ function App() {
   const filters = useClaimFilters(allClaims)
 
   useEffect(() => {
-    setIsLoadingClaims(true)
     Promise.all([listClaims(currentPage, pageSize, filters.searchTerm, filters.statusFilter, filters.typeFilter), getClaimMetrics()])
       .then(([loadedPage, loadedMetrics]) => {
         setAllClaims(loadedPage.content)
@@ -35,9 +34,20 @@ function App() {
       .finally(() => setIsLoadingClaims(false))
   }, [currentPage, pageSize, filters.searchTerm, filters.statusFilter, filters.typeFilter])
 
-  useEffect(() => {
+  const handleSearchChange = (value: string) => {
     setCurrentPage(0)
-  }, [filters.searchTerm, filters.statusFilter, filters.typeFilter])
+    filters.setSearchTerm(value)
+  }
+
+  const handleStatusChange = (value: string) => {
+    setCurrentPage(0)
+    filters.setStatusFilter(value)
+  }
+
+  const handleTypeChange = (value: string) => {
+    setCurrentPage(0)
+    filters.setTypeFilter(value)
+  }
 
   const handlePageSizeChange = (nextPageSize: number) => {
     setPageSize(nextPageSize)
@@ -74,11 +84,11 @@ function App() {
           <ClaimsTable
             claims={allClaims}
             searchTerm={filters.searchTerm}
-            onSearchChange={filters.setSearchTerm}
+            onSearchChange={handleSearchChange}
             statusFilter={filters.statusFilter}
-            onStatusChange={filters.setStatusFilter}
+            onStatusChange={handleStatusChange}
             typeFilter={filters.typeFilter}
-            onTypeChange={filters.setTypeFilter}
+            onTypeChange={handleTypeChange}
             loading={isLoadingClaims}
             onSelectClaim={setSelectedClaim}
             totalClaims={totalClaims}

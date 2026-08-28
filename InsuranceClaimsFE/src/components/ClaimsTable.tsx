@@ -50,6 +50,7 @@ const statusOptions = [
   { value: 'submitted', label: 'Submitted' },
   { value: 'under-review', label: 'Under review' },
   { value: 'approved', label: 'Approved' },
+  { value: 'rejected', label: 'Rejected' },
   { value: 'paid', label: 'Paid' },
 ]
 

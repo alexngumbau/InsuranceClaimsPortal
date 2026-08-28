@@ -1,7 +1,7 @@
 .app-shell {
   min-height: 100vh;
   display: flex;
-  background: #f7f8fa;
+  background: #edeff3;
   color: #25282d;
 }
 
@@ -11,8 +11,8 @@
   padding: 30px 18px 24px;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border-right: 1px solid #e6e8eb;
+  background: #fafbfc;
+  border-right: 1px solid #e0e3e8;
 }
 
 .brand {
@@ -34,9 +34,7 @@
 }
 
 .brand strong,
-.brand span,
-.profile strong,
-.profile span {
+.brand span {
   display: block;
 }
 
@@ -45,8 +43,7 @@
   color: #17191c;
 }
 
-.brand span,
-.profile span {
+.brand span {
   color: #858b93;
   font-size: 11px;
 }
@@ -101,17 +98,12 @@
   padding: 30px 24px 56px;
 }
 
-.topbar,
 .page-heading,
 .section-heading,
 .table-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.topbar {
-  padding-bottom: 48px;
 }
 
 .eyebrow,
@@ -153,28 +145,6 @@ h3 {
   margin-bottom: 0;
   color: #858b93;
   font-size: 12px;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.profile strong {
-  font-size: 12px;
-}
-
-.avatar {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #25282d;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
 }
 
 .page-heading {
@@ -224,14 +194,14 @@ h3 {
   min-height: 112px;
   padding: 20px;
   box-sizing: border-box;
-  border: 1px solid #e6e8eb;
+  border: 1px solid #e1e4e9;
   border-radius: 7px;
-  background: #fff;
+  background: #fcfcfd;
 }
 
 .metric-card.accent {
-  border-color: #f0c7cc;
-  background: #fff5f5;
+  border-color: #eec3c9;
+  background: #fbedee;
 }
 
 .metric-card strong {
@@ -248,9 +218,9 @@ h3 {
 
 .claims-section {
   padding: 25px;
-  border: 1px solid #e6e8eb;
+  border: 1px solid #e1e4e9;
   border-radius: 7px;
-  background: #fff;
+  background: #fcfcfd;
 }
 
 .section-heading {
@@ -269,7 +239,7 @@ select {
   box-sizing: border-box;
   border: 1px solid #dfe2e5;
   border-radius: 5px;
-  background: #fff;
+  background: #fcfcfd;
   color: #858b93;
   font: inherit;
   font-size: 11px;
@@ -489,16 +459,11 @@ td {
     padding: 25px 16px;
   }
 
-  .topbar,
   .page-heading,
   .section-heading {
     align-items: flex-start;
     gap: 18px;
     flex-direction: column;
-  }
-
-  .profile {
-    align-self: flex-end;
   }
 
   .metrics {

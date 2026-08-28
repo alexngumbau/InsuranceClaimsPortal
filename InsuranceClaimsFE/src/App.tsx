@@ -21,7 +21,7 @@ function App() {
   const [pageSize, setPageSize] = useState(10)
   const [metrics, setMetrics] = useState<Awaited<ReturnType<typeof getClaimMetrics>> | null>(null)
   const [isLoadingClaims, setIsLoadingClaims] = useState(true)
-  const filters = useClaimFilters(allClaims)
+  const filters = useClaimFilters()
 
   useEffect(() => {
     Promise.all([listClaims(currentPage, pageSize, filters.searchTerm, filters.statusFilter, filters.typeFilter), getClaimMetrics()])
@@ -75,7 +75,7 @@ function App() {
   }
 
   return (
-    <ConfigProvider theme={{ token: { colorPrimary: '#df142d', borderRadius: 5 } }}>
+    <ConfigProvider theme={{ token: { colorPrimary: '#df142d', borderRadius: 5, colorBgContainer: '#fcfcfd', colorBgElevated: '#fdfdfe' } }}>
       <main className="app-shell">
         <Sidebar />
         <section className="content">

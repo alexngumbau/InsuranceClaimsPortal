@@ -1,0 +1,6 @@
+.env
+.env.*
+application-local.properties
+target/
+data/
+.git/

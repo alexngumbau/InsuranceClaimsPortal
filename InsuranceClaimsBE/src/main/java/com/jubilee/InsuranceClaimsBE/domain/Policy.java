@@ -1,5 +1,6 @@
 package com.jubilee.InsuranceClaimsBE.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,8 +18,11 @@ public class Policy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String policyNumber;
+    @Column(nullable = false)
     private String customerName;
+    @Column(nullable = false)
     private String policyType;
 
     public Policy(String policyNumber, String customerName, String policyType) {
